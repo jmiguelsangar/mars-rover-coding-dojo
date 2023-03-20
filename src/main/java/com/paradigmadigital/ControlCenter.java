@@ -1,6 +1,7 @@
 package com.paradigmadigital;
 
 import com.paradigmadigital.command.CommandFactory;
+import com.paradigmadigital.rover.Rover;
 import java.util.Arrays;
 
 public class ControlCenter {

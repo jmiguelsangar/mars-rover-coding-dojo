@@ -1,6 +1,6 @@
 package com.paradigmadigital.command;
 
-import com.paradigmadigital.Rover;
+import com.paradigmadigital.rover.Rover;
 
 public interface Command {
 
