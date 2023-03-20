@@ -52,4 +52,21 @@ public class Rover {
         break;
     }
   }
+
+  public void turnRight() {
+    switch (orientation) {
+      case NORTH:
+        this.orientation = Orientation.EAST;
+        break;
+      case EAST:
+        this.orientation = Orientation.SOUTH;
+        break;
+      case SOUTH:
+        this.orientation = Orientation.WEST;
+        break;
+      case WEST:
+        this.orientation = Orientation.NORTH;
+        break;
+    }
+  }
 }
