@@ -1,5 +1,8 @@
 package com.paradigmadigital;
 
+import com.paradigmadigital.command.CommandFactory;
+import java.util.Arrays;
+
 public class ControlCenter {
 
   private Rover rover;
@@ -9,20 +12,9 @@ public class ControlCenter {
   }
 
   public Rover run(String commands) {
-    for (String c : commands.split("")) {
-      switch (c) {
-        case "M":
-          rover = rover.move();
-          break;
-        case "L":
-          rover = rover.rotateLeft();
-          break;
-        case "R":
-          rover = rover.rotateRight();
-          break;
-        default:
-      }
-    }
+    CommandFactory commandFactory = new CommandFactory();
+    Arrays.stream(commands.split("")).forEach(s -> rover = commandFactory.execute(rover, s));
+
     return rover;
   }
 }
