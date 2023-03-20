@@ -48,8 +48,8 @@ class RoverMoveTest {
   void roverShouldMoveTo(Coordinate initial, Orientation orientation, Coordinate expected) {
     Rover rover = new Rover(plateau, initial, orientation);
 
-    rover.move();
+    Rover actual = rover.move();
 
-    assertThat(rover.getCoordinate()).isEqualTo(expected);
+    assertThat(actual.getCoordinate()).isEqualTo(expected);
   }
 }

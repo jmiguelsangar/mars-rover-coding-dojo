@@ -25,9 +25,9 @@ public class ControlCenterTest {
   void executeCommandsTest(Rover initial, String commands, Rover expected) {
     ControlCenter controlCenter = new ControlCenter(initial);
 
-    controlCenter.run(commands);
+    Rover actual = controlCenter.run(commands);
 
-    assertThat(initial.getCoordinate()).isEqualTo(expected.getCoordinate());
-    assertThat(initial.getOrientation()).isEqualTo(expected.getOrientation());
+    assertThat(actual.getCoordinate()).isEqualTo(expected.getCoordinate());
+    assertThat(actual.getOrientation()).isEqualTo(expected.getOrientation());
   }
 }

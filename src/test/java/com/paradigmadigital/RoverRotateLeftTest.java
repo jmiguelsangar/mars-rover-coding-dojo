@@ -25,8 +25,8 @@ public class RoverRotateLeftTest {
     Coordinate coordinate = Coordinate.of(0, 0);
     Rover rover = new Rover(plateau, coordinate, initial);
 
-    rover.rotateLeft();
+    Rover actual = rover.rotateLeft();
 
-    assertThat(rover.getOrientation()).isEqualTo(expected);
+    assertThat(actual.getOrientation()).isEqualTo(expected);
   }
 }

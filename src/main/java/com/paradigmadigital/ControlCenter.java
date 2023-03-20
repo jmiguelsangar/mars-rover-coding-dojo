@@ -2,27 +2,27 @@ package com.paradigmadigital;
 
 public class ControlCenter {
 
-  private final Rover rover;
+  private Rover rover;
 
   public ControlCenter(Rover rover) {
     this.rover = rover;
   }
 
-  public void run(String commands) {
+  public Rover run(String commands) {
     for (String c : commands.split("")) {
       switch (c) {
         case "M":
-          rover.move();
+          rover = rover.move();
           break;
         case "L":
-          rover.rotateLeft();
+          rover = rover.rotateLeft();
           break;
         case "R":
-          rover.rotateRight();
+          rover = rover.rotateRight();
           break;
         default:
       }
     }
-
+    return rover;
   }
 }

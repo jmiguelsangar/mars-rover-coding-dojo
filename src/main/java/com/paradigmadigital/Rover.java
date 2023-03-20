@@ -1,72 +1,76 @@
 package com.paradigmadigital;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
 public class Rover {
 
-  private final Plateau plateau;
-  private Coordinate coordinate;
-  private Orientation orientation;
+  Plateau plateau;
+  Coordinate coordinate;
+  Orientation orientation;
 
-  public void move() {
+  public Rover move() {
+    Coordinate newCoordinate = this.getCoordinate();
     switch (orientation) {
       case NORTH:
         if (getCoordinate().getY() < plateau.getMaxY()) {
-          this.coordinate = Coordinate.of(getCoordinate().getX(), getCoordinate().getY() + 1);
+          newCoordinate = Coordinate.of(getCoordinate().getX(), getCoordinate().getY() + 1);
         }
         break;
       case SOUTH:
         if (getCoordinate().getY() > 0) {
-          this.coordinate = Coordinate.of(getCoordinate().getX(), getCoordinate().getY() - 1);
+          newCoordinate = Coordinate.of(getCoordinate().getX(), getCoordinate().getY() - 1);
         }
         break;
       case EAST:
         if (getCoordinate().getX() < plateau.getMaxX()) {
-          this.coordinate = Coordinate.of(getCoordinate().getX() + 1, getCoordinate().getY());
+          newCoordinate = Coordinate.of(getCoordinate().getX() + 1, getCoordinate().getY());
         }
         break;
       case WEST:
         if (getCoordinate().getX() > 0) {
-          this.coordinate = Coordinate.of(getCoordinate().getX() - 1, getCoordinate().getY());
+          newCoordinate = Coordinate.of(getCoordinate().getX() - 1, getCoordinate().getY());
         }
         break;
     }
+    return new Rover(getPlateau(), newCoordinate, getOrientation());
   }
 
-  public void rotateLeft() {
+  public Rover rotateLeft() {
+    Orientation newOrientation = getOrientation();
     switch (orientation) {
       case NORTH:
-        this.orientation = Orientation.WEST;
+        newOrientation = Orientation.WEST;
         break;
       case SOUTH:
-        this.orientation = Orientation.EAST;
+        newOrientation = Orientation.EAST;
         break;
       case EAST:
-        this.orientation = Orientation.NORTH;
+        newOrientation = Orientation.NORTH;
         break;
       case WEST:
-        this.orientation = Orientation.SOUTH;
+        newOrientation = Orientation.SOUTH;
         break;
     }
+    return new Rover(getPlateau(), getCoordinate(), newOrientation);
   }
 
-  public void rotateRight() {
+  public Rover rotateRight() {
+    Orientation newOrientation = getOrientation();
     switch (orientation) {
       case NORTH:
-        this.orientation = Orientation.EAST;
+        newOrientation = Orientation.EAST;
         break;
       case EAST:
-        this.orientation = Orientation.SOUTH;
+        newOrientation = Orientation.SOUTH;
         break;
       case SOUTH:
-        this.orientation = Orientation.WEST;
+        newOrientation = Orientation.WEST;
         break;
       case WEST:
-        this.orientation = Orientation.NORTH;
+        newOrientation = Orientation.NORTH;
         break;
     }
+    return new Rover(getPlateau(), getCoordinate(), newOrientation);
   }
 }
