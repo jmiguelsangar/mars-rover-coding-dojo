@@ -59,9 +59,8 @@ public class RoverControllerTest {
   void executeCommandsTest(Rover initial, String commands, Rover expected) {
     RoverController roverController = new RoverController(initial);
 
-    roverController.run(commands);
+    Rover actual = roverController.run(commands);
 
-    assertThat(initial.getCoordinate()).isEqualTo(expected.getCoordinate());
-    assertThat(initial.getOrientation()).isEqualTo(expected.getOrientation());
+    assertThat(actual).isEqualTo(expected);
   }
 }

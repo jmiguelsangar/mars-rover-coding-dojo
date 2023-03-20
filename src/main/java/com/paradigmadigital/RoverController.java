@@ -2,25 +2,25 @@ package com.paradigmadigital;
 
 public class RoverController {
 
-  private final Rover rover;
+  private Rover rover;
 
   public RoverController(Rover rover) {
     this.rover = rover;
   }
 
-  public void run(String commands) {
+  public Rover run(String commands) {
 
     try {
       for (String c : commands.split("")) {
         switch (c) {
           case "M":
-            rover.move();
+            rover = rover.move();
             break;
           case "L":
-            rover.turnLeft();
+            rover = rover.turnLeft();
             break;
           case "R":
-            rover.turnRight();
+            rover = rover.turnRight();
             break;
           default:
         }
@@ -28,5 +28,7 @@ public class RoverController {
     } catch (ObstacleDetectedException e) {
       System.out.println(e.getMessage());
     }
+
+    return rover;
   }
 }

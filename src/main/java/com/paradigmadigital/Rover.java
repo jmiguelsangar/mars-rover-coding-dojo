@@ -1,79 +1,90 @@
 package com.paradigmadigital;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
 public class Rover {
 
-  private final Plateau plateau;
-  private Coordinate coordinate;
-  private Orientation orientation;
+  Plateau plateau;
+  Coordinate coordinate;
+  Orientation orientation;
 
-  public void move() {
+  public Rover move() {
+    Coordinate newCoordinate = this.getCoordinate();
+
     switch (orientation) {
       case NORTH:
         if (getCoordinate().getY() < plateau.getMaxY()) {
-          setNewCoordinate(Coordinate.of(getCoordinate().getX(), getCoordinate().getY() + 1));
+          newCoordinate = getValidCoodinate(Coordinate.of(getCoordinate().getX(), getCoordinate().getY() + 1));
         }
         break;
       case SOUTH:
         if (getCoordinate().getY() > 0) {
-          setNewCoordinate(Coordinate.of(getCoordinate().getX(), getCoordinate().getY() - 1));
+          newCoordinate = getValidCoodinate(Coordinate.of(getCoordinate().getX(), getCoordinate().getY() - 1));
         }
         break;
       case EAST:
         if (getCoordinate().getX() < plateau.getMaxX()) {
-          setNewCoordinate(Coordinate.of(getCoordinate().getX() + 1, getCoordinate().getY()));
+          newCoordinate = getValidCoodinate(Coordinate.of(getCoordinate().getX() + 1, getCoordinate().getY()));
         }
         break;
       case WEST:
         if (getCoordinate().getX() > 0) {
-          setNewCoordinate(Coordinate.of(getCoordinate().getX() - 1, getCoordinate().getY()));
+          newCoordinate = getValidCoodinate(Coordinate.of(getCoordinate().getX() - 1, getCoordinate().getY()));
         }
         break;
     }
+
+    return new Rover(getPlateau(), newCoordinate, getOrientation());
   }
 
-  public void turnLeft() {
+  public Rover turnLeft() {
+    Orientation newOrientation = getOrientation();
+
     switch (orientation) {
       case NORTH:
-        this.orientation = Orientation.WEST;
+        newOrientation = Orientation.WEST;
         break;
       case SOUTH:
-        this.orientation = Orientation.EAST;
+        newOrientation = Orientation.EAST;
         break;
       case EAST:
-        this.orientation = Orientation.NORTH;
+        newOrientation = Orientation.NORTH;
         break;
       case WEST:
-        this.orientation = Orientation.SOUTH;
+        newOrientation = Orientation.SOUTH;
         break;
     }
+
+    return new Rover(getPlateau(), getCoordinate(), newOrientation);
   }
 
-  public void turnRight() {
+  public Rover turnRight() {
+    Orientation newOrientation = getOrientation();
+
     switch (orientation) {
       case NORTH:
-        this.orientation = Orientation.EAST;
+        newOrientation = Orientation.EAST;
         break;
       case EAST:
-        this.orientation = Orientation.SOUTH;
+        newOrientation = Orientation.SOUTH;
         break;
       case SOUTH:
-        this.orientation = Orientation.WEST;
+        newOrientation = Orientation.WEST;
         break;
       case WEST:
-        this.orientation = Orientation.NORTH;
+        newOrientation = Orientation.NORTH;
         break;
     }
+
+    return new Rover(getPlateau(), getCoordinate(), newOrientation);
   }
 
-  private void setNewCoordinate(Coordinate nextCoordinate) {
+  private Coordinate getValidCoodinate(Coordinate nextCoordinate) {
     if (plateau.hasObstacleAt(nextCoordinate)) {
       throw new ObstacleDetectedException("An obstacle has been detected at the " + coordinate);
     }
-    this.coordinate = nextCoordinate;
+
+    return nextCoordinate;
   }
 }
