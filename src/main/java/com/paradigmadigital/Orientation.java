@@ -1,5 +1,5 @@
 package com.paradigmadigital;
 
 public enum Orientation {
-  NORTH
+  WEST, SOUTH, EAST, NORTH
 }
