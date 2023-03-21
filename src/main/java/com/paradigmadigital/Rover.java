@@ -15,22 +15,22 @@ public class Rover {
     switch (orientation) {
       case NORTH:
         if (getCoordinate().getY() < plateau.getMaxY()) {
-          this.coordinate = Coordinate.of(getCoordinate().getX(), getCoordinate().getY() + 1);
+          setNewCoordinate(Coordinate.of(getCoordinate().getX(), getCoordinate().getY() + 1));
         }
         break;
       case SOUTH:
         if (getCoordinate().getY() > 0) {
-          this.coordinate = Coordinate.of(getCoordinate().getX(), getCoordinate().getY() - 1);
+          setNewCoordinate(Coordinate.of(getCoordinate().getX(), getCoordinate().getY() - 1));
         }
         break;
       case EAST:
         if (getCoordinate().getX() < plateau.getMaxX()) {
-          this.coordinate = Coordinate.of(getCoordinate().getX() + 1, getCoordinate().getY());
+          setNewCoordinate(Coordinate.of(getCoordinate().getX() + 1, getCoordinate().getY()));
         }
         break;
       case WEST:
         if (getCoordinate().getX() > 0) {
-          this.coordinate = Coordinate.of(getCoordinate().getX() - 1, getCoordinate().getY());
+          setNewCoordinate(Coordinate.of(getCoordinate().getX() - 1, getCoordinate().getY()));
         }
         break;
     }
@@ -68,5 +68,12 @@ public class Rover {
         this.orientation = Orientation.NORTH;
         break;
     }
+  }
+
+  private void setNewCoordinate(Coordinate nextCoordinate) {
+    if (plateau.hasObstacleAt(nextCoordinate)) {
+      throw new ObstacleDetectedException("An obstacle has been detected at the " + coordinate);
+    }
+    this.coordinate = nextCoordinate;
   }
 }
