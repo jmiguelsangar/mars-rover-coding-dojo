@@ -1,5 +1,7 @@
 package com.paradigmadigital;
 
+import com.paradigmadigital.rover.Rover;
+
 public class RoverController {
 
   private Rover rover;

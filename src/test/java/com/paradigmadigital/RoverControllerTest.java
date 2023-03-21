@@ -2,6 +2,11 @@ package com.paradigmadigital;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.paradigmadigital.rover.Rover;
+import com.paradigmadigital.rover.RoverPositionedEast;
+import com.paradigmadigital.rover.RoverPositionedNorth;
+import com.paradigmadigital.rover.RoverPositionedSouth;
+import com.paradigmadigital.rover.RoverPositionedWest;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,29 +32,29 @@ public class RoverControllerTest {
   public static Stream<Arguments> provideCommands() {
     return Stream.of(
         Arguments.of(
-            new Rover(plateau, Coordinate.of(1, 2), Orientation.NORTH),
+            new RoverPositionedNorth(plateau, Coordinate.of(1, 2)),
             "LMLMLMLMM",
-            new Rover(plateau, Coordinate.of(1, 3), Orientation.NORTH)
+            new RoverPositionedNorth(plateau, Coordinate.of(1, 3))
         ),
         Arguments.of(
-            new Rover(plateau, Coordinate.of(3, 3), Orientation.EAST),
+            new RoverPositionedEast(plateau, Coordinate.of(3, 3)),
             "MMRMMRMRRM",
-            new Rover(plateau, Coordinate.of(5, 1), Orientation.EAST)
+            new RoverPositionedEast(plateau, Coordinate.of(5, 1))
         ),
         Arguments.of(
-            new Rover(plateauWithObstacles, Coordinate.of(0, 0), Orientation.NORTH),
+            new RoverPositionedNorth(plateauWithObstacles, Coordinate.of(0, 0)),
             "MRMMRMMM",
-            new Rover(plateauWithObstacles, Coordinate.of(0, 1), Orientation.EAST)
+            new RoverPositionedEast(plateauWithObstacles, Coordinate.of(0, 1))
         ),
         Arguments.of(
-            new Rover(plateauWithObstacles, Coordinate.of(0, 0), Orientation.EAST),
+            new RoverPositionedEast(plateauWithObstacles, Coordinate.of(0, 0)),
             "MMMLMMMLMMM",
-            new Rover(plateauWithObstacles, Coordinate.of(3, 3), Orientation.WEST)
+            new RoverPositionedWest(plateauWithObstacles, Coordinate.of(3, 3))
         ),
         Arguments.of(
-            new Rover(plateauWithObstacles, Coordinate.of(0, 0), Orientation.NORTH),
+            new RoverPositionedNorth(plateauWithObstacles, Coordinate.of(0, 0)),
             "MMMMMMRMMRMLMRMLMRMLMR",
-            new Rover(plateauWithObstacles, Coordinate.of(4, 3), Orientation.SOUTH)
+            new RoverPositionedSouth(plateauWithObstacles, Coordinate.of(4, 3))
         )
     );
   }
