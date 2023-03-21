@@ -1,5 +1,6 @@
 package com.paradigmadigital;
 
+import com.paradigmadigital.command.CommandFactory;
 import com.paradigmadigital.rover.Rover;
 
 public class RoverController {
@@ -11,21 +12,10 @@ public class RoverController {
   }
 
   public Rover run(String commands) {
-
+    CommandFactory commandFactory = new CommandFactory();
     try {
-      for (String c : commands.split("")) {
-        switch (c) {
-          case "M":
-            rover = rover.move();
-            break;
-          case "L":
-            rover = rover.turnLeft();
-            break;
-          case "R":
-            rover = rover.turnRight();
-            break;
-          default:
-        }
+      for (String s : commands.split("")) {
+        rover = commandFactory.execute(rover, s);
       }
     } catch (ObstacleDetectedException e) {
       System.out.println(e.getMessage());
